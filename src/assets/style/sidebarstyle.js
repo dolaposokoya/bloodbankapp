@@ -94,6 +94,23 @@ const Sidestyle = StyleSheet.create({
     backgroundColor: 'lightgray',
     color: '#000000',
   },
+  addressView: {
+    width: '100%',
+    justifyContent: 'space-evenly',
+    paddingTop: 10,
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
+  addressField: {
+    borderWidth: 2,
+    borderColor: '#e3e3e3',
+    paddingHorizontal: 15,
+    borderRadius: 14,
+    fontSize: 15,
+    marginBottom: 10,
+    backgroundColor: 'lightgray',
+    color: '#000000',
+  },
   dropPicker: {
     borderRadius: 14,
     borderWidth: 2,

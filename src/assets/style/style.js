@@ -2,6 +2,9 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 
 const Style = StyleSheet.create({
+  scrollView: {
+    marginBottom: 110,
+  },
   container: {
     flex: 1,
     backgroundColor: 'lightgray',
@@ -73,7 +76,7 @@ const Style = StyleSheet.create({
     height: 50,
     marginTop: 10,
     borderRadius: 10,
-    elevation: 3,
+    elevation: 40,
     marginRight: '27%',
     marginLeft: '27%',
   },
