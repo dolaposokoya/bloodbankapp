@@ -175,3 +175,4 @@ const Sidestyle = StyleSheet.create({
 });
 
 export default Sidestyle;
+
