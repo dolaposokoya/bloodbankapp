@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   View,
   ScrollView,
@@ -9,12 +9,11 @@ import {
 import Header from '../shared/header';
 import StyleView from '../assets/style/sidebarstyle';
 import Style from '../assets/style/style';
-import AsyncStorage from '@react-native-community/async-storage';
-import {LoginAction} from '../action/loginAction';
-import {metaDataAction} from '../action/metaDataAction';
-import {Picker, DatePicker, Toast} from 'native-base';
-import apiUrl from '../config/apiUrl';
-import {connect} from 'react-redux';
+import { LoginAction } from '../action/loginAction';
+import { metaDataAction } from '../action/metaDataAction';
+import { Picker, DatePicker, Toast } from 'native-base';
+import { apiUrl } from '../config/apiUrl';
+import { connect } from 'react-redux';
 
 class RequestBlood extends Component {
   constructor(props, context) {
@@ -34,33 +33,38 @@ class RequestBlood extends Component {
       hospital_mobile: '',
       date_needed: '',
       bloodgroup: '',
-      states: [{state: 'states'}],
+      states: [{ state: 'states' }],
       patient_email: '',
-      bloodgroup: [{group: 'A+'}],
+      bloodgroup: [{ group: 'A+' }],
     };
   }
 
-  async UNSAFE_componentWillMount() {
-    const profile_id = await AsyncStorage.getItem('profile_id');
-    const token = await AsyncStorage.getItem('token');
-    this.setState({profile_id: profile_id});
-    this.setState({userToken: token});
-    await this.props.metaDataAction(data => {
-      if (data.success == true) {
-        this.setState({bloodgroup: data.data.bloodgroup});
-        this.setState({states: data.data.state});
-      } else {
-        Toast.show({
-          text: data.message,
-          position: 'top',
-          type: 'warning',
-          buttonText: 'Okay',
-          buttonTextStyle: {color: 'black', fontSize: 15, textAlign: 'center'},
-          buttonStyle: {backgroundColor: '#9a0901'},
-          duration: 7000,
-        });
-      }
-    });
+  getMetaData = async () => {
+    try {
+      await this.props.metaDataAction(data => {
+        if (data.success === true) {
+          this.setState({
+            bloodgroup: data.data.bloodgroup, states: data.data.state, loading: false
+          });
+        } else {
+          this.setState({ loading: false });
+        }
+      });
+    }
+    catch (error) {
+      Toast.show({
+        text: error.message,
+        position: 'top',
+        type: 'warning',
+        buttonText: 'Okay',
+        buttonTextStyle: { color: 'black', fontSize: 15, textAlign: 'center' },
+        buttonStyle: { backgroundColor: '#9a0901' },
+        duration: 7000,
+      });
+    }
+  }
+  componentDidMount = async () => {
+    await this.getMetaData()
   }
 
   makeRequest() {
@@ -188,7 +192,7 @@ class RequestBlood extends Component {
                 fontSize: 15,
                 textAlign: 'center',
               },
-              buttonStyle: {backgroundColor: '#9a0901'},
+              buttonStyle: { backgroundColor: '#9a0901' },
               duration: 7000,
             });
           } else {
@@ -202,89 +206,80 @@ class RequestBlood extends Component {
                 fontSize: 15,
                 textAlign: 'center',
               },
-              buttonStyle: {backgroundColor: '#9a0901'},
+              buttonStyle: { backgroundColor: '#9a0901' },
               duration: 7000,
             });
           }
         });
     }
   }
+
   render() {
     return (
-      <View>
+      <>
         <Header
-          title="Make Request For Blood"
+          title="Make Request"
           parentProps={this.props}
           navigation={this.props.navigation}
         />
-        <ScrollView>
-          <View style={StyleView.container}>
-            <View style={StyleView.profileId}>
-              <Text style={StyleView.textContainer}>
-                Profile ID: {this.state.profile_id}
-              </Text>
-            </View>
-
+        <ScrollView style={[StyleView.container]}>
+          <View >
             <View style={StyleView.reg_main}>
               <View style={StyleView.inputView}>
                 <TextInput
                   onChangeText={val => {
-                    this.setState({patient_name: val});
+                    this.setState({ patient_name: val });
                   }}
                   style={StyleView.inputField}
                   placeholder="Patient Name"
+                  placeholderTextColor={'black'}
                 />
               </View>
               <View style={StyleView.inputView}>
                 <TextInput
                   onChangeText={val => {
-                    this.setState({patient_mobile: val});
+                    this.setState({ patient_mobile: val });
                   }}
                   style={StyleView.inputField}
                   placeholder="Patient Mobile"
+                  placeholderTextColor={'black'}
                 />
               </View>
               <View style={StyleView.inputView}>
                 <TextInput
                   onChangeText={val => {
-                    this.setState({patient_email: val});
+                    this.setState({ patient_email: val });
                   }}
                   style={StyleView.inputField}
                   placeholder="Contact Email"
+                  placeholderTextColor={'black'}
                 />
               </View>
               <View style={StyleView.inputView}>
                 <View
-                  style={{
-                    borderRadius: 14,
-                    height: 40,
-                    backgroundColor: 'lightgray',
-                    justifyContent: 'center',
-                    borderWidth: 2,
-                  }}>
+                  style={[StyleView.inputField, { paddingLeft: 0 }]}
+                >
                   <DatePicker
                     locale={'en'}
                     modalTransparent={false}
                     animationType={'fade'}
                     placeHolderText="date of request"
-                    textStyle={{color: 'black'}}
-                    placeHolderTextStyle={{
-                      color: 'black',
-                    }}
+                    textStyle={{ color: 'black' }}
+                    style={StyleView.inputField}
                     onDateChange={val => {
-                      this.setState({date_needed: val});
+                      this.setState({ date_needed: val });
                     }}
                     disabled={false}
                   />
                 </View>
               </View>
               <View style={StyleView.inputView}>
-                <View style={StyleView.dropPicker}>
+                <View style={[StyleView.inputField, { paddingLeft: 0 }]}>
                   <Picker
                     mode="dropdown"
                     selectedValue={this.state.blood_group}
                     onValueChange={value => {
-                      this.setState({blood_group: value});
+                      this.setState({ blood_group: value });
                     }}>
                     <Picker.Item
                       label={this.state.blood_group}
@@ -305,56 +300,61 @@ class RequestBlood extends Component {
               <View style={StyleView.inputView}>
                 <TextInput
                   onChangeText={val => {
-                    this.setState({doctor_name: val});
+                    this.setState({ doctor_name: val });
                   }}
                   style={StyleView.inputField}
                   placeholder="Dr. Name"
+                  placeholderTextColor={'black'}
                 />
               </View>
               <View style={StyleView.inputView}>
                 <TextInput
                   onChangeText={val => {
-                    this.setState({hospital_name: val});
+                    this.setState({ hospital_name: val });
                   }}
                   style={StyleView.inputField}
                   placeholder="Hospital Name"
+                  placeholderTextColor={'black'}
                 />
               </View>
               <View style={StyleView.inputView}>
                 <TextInput
                   onChangeText={val => {
-                    this.setState({hospital_address: val});
+                    this.setState({ hospital_address: val });
                   }}
                   style={StyleView.inputField}
                   placeholder="Hospital Address"
+                  placeholderTextColor={'black'}
                 />
               </View>
               <View style={StyleView.inputView}>
                 <TextInput
                   onChangeText={val => {
-                    this.setState({city: val});
+                    this.setState({ city: val });
                   }}
                   style={StyleView.inputField}
                   placeholder="City"
+                  placeholderTextColor={'black'}
                 />
               </View>
               <View style={StyleView.inputView}>
                 <TextInput
                   onChangeText={val => {
-                    this.setState({pincode: val});
+                    this.setState({ pincode: val });
                   }}
                   style={StyleView.inputField}
                   placeholder="Pin Code(City)"
+                  placeholderTextColor={'black'}
                   keyboardType={'numeric'}
                 />
               </View>
               <View style={StyleView.inputView}>
-                <View style={StyleView.dropPicker}>
+                <View style={[StyleView.inputField, { paddingLeft: 0 }]}>
                   <Picker
                     mode="dropdown"
                     selectedValue={this.state.state}
                     onValueChange={value => {
-                      this.setState({state: value});
+                      this.setState({ state: value });
                     }}>
                     <Picker.Item
                       label={this.state.state}
@@ -375,38 +375,41 @@ class RequestBlood extends Component {
               <View style={StyleView.inputView}>
                 <TextInput
                   onChangeText={val => {
-                    this.setState({hospital_mobile: val});
+                    this.setState({ hospital_mobile: val });
                   }}
                   style={StyleView.inputField}
                   placeholder="Hospital mobile"
+                  placeholderTextColor={'black'}
                 />
               </View>
-            </View>
-            <TouchableOpacity
-              style={Style.loginBtn}
-              onPress={() => {
-                this.makeRequest();
-              }}>
-              <Text
-                style={{
-                  textAlign: 'center',
-                  margin: 12,
-                  fontWeight: 'bold',
-                  fontSize: 20,
+              <TouchableOpacity
+                style={Style.reqBtn}
+                onPress={() => {
+                  this.makeRequest();
                 }}>
-                REQUEST
-              </Text>
-            </TouchableOpacity>
+                <Text
+                  style={{
+                    textAlign: 'center',
+                    margin: 12,
+                    width: 100,
+                    fontWeight: 'bold',
+                    fontSize: 20,
+                  }}
+                >
+                  REQUEST
+            </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </ScrollView>
-      </View>
+      </>
     );
   }
 }
 
 const mapStateToProps = state => {
-  const {loginstate} = state.LoginReducer;
-  const {metaData} = state.metaDataReducer;
+  const { loginstate } = state.LoginReducer;
+  const { metaData } = state.metaDataReducer;
   return {
     loginstate,
     metaData,
@@ -414,7 +417,6 @@ const mapStateToProps = state => {
 };
 RequestComp = connect(
   mapStateToProps,
-  {LoginAction, metaDataAction},
+  { LoginAction, metaDataAction },
 )(RequestBlood);
 export default RequestComp;
-// export default DonateBlood;

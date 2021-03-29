@@ -15,7 +15,7 @@ class Loader extends Component {
         this.setState({
           loading: false,
         }),
-        15000,
+        10000,
     );
   UNSAFE_componentWillMount() {
     this.closeActivityIndicator;
