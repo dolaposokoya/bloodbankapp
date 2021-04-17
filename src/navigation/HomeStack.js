@@ -40,10 +40,6 @@ const HomeStack = () => {
         // }
     }, [])
 
-    // if (!loading) {
-    //     checkSession()
-    //     return <Loader />;
-    // }
     return (
         <>
             {loading === false ?

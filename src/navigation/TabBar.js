@@ -4,8 +4,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TabBarComponent from './TabBarComponent'
 import ContactDonorComp from '../screen/contactDonor';
 import Chat from '../screen/Chat';
-import RequestComp from '../screen/requestBlood';
-import Profile from '../screen/Profile';
+import RequestComp from '../screen/requestBlood';;
+import ProfileStack from './ProfileStack'
 import { Image, Dimensions } from "react-native";
 
 
@@ -92,7 +92,7 @@ const TabBar = (props) => {
                     )
                 }}
             />
-            < TabNavigation.Screen name="Profile" component={Profile}
+            < TabNavigation.Screen name="Profile" component={ProfileStack}
                 options={{
                     tabBarLabel: "Profile",
                     tabBarIcon: ({ focused, color, size }) => (

@@ -5,6 +5,7 @@ import { apiUrl } from '../config/apiUrl';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import Loader from '../shared/loader';
+import UserProfile from '../shared/UserProfile';
 import { Avatar, Title, Text, Switch, Drawer, Paragraph, Caption } from 'react-native-paper'
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer'
 import Cookie from 'react-native-cookie';
@@ -18,9 +19,10 @@ export default function Profile(props) {
     const [user, setuser] = useState({})
     const [loading, setloading] = useState(false)
     const [focused, setfocused] = useState('Contact')
+    const [myProfile, setmyProfile] = useState(false)
 
     const getUser = async () => {
-        setloading(true)
+        // setloading(true)
         try {
             const userId = await AsyncStorage.getItem('@user_info')
             const id = JSON.parse(userId)
@@ -69,9 +71,9 @@ export default function Profile(props) {
             />
             {!loading ?
                 <SafeAreaView style={Style.container}>
-                    <View style={Style.drawerContent}>
+                    {!myProfile ? <View style={Style.drawerContent}>
                         <View style={Style.userInfoSection}>
-                            <View style={{ flexDirection: 'column', marginTop: 15, }}>
+                            <View style={{ flexDirection: 'column', marginTop: 15, justifyContent: 'center', alignItems: 'center' }}>
                                 <Avatar.Image
                                     source={{ uri: user.profile_image && `${apiUrl.baseURL}/${user.profile_image}` }}
                                     size={120}
@@ -84,9 +86,9 @@ export default function Profile(props) {
                         <Drawer.Section style={Style.drawerSection}>
                             <TouchableOpacity style={{ backgroundColor: 'white' }}>
                                 <DrawerItem
-                                    // onPress={() => {
-                                    //     selectedPage('Profile')
-                                    // }}
+                                    onPress={() => {
+                                        setmyProfile(true)
+                                    }}
                                     icon={({ color, size }) => (
                                         <Image source={require('../assets/images/user.png')} style={{ width: 35, height: 35 }} />
                                     )}
@@ -125,11 +127,18 @@ export default function Profile(props) {
                                 />
                             </TouchableOpacity>
                         </Drawer.Section>
-                    </View>
+                    </View> : <View style={Style.userProfile}>
+                        <UserProfile user={user} navigation={navigation} />
+                        <View style={Style.userProfile}>
+                            <TouchableOpacity onPress={() => setmyProfile(false)} style={Style.done}>
+                                <Text>Done</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>}
                     {/* <View> */}
                     <TouchableOpacity style={Style.bottomDrawerSection} onPress={() => logOutSession()}>
                         <Image source={require('../assets/images/logout.png')} style={{ width: 40, height: 40, marginRight: 20 }} />
-                        <Text style={{fontSize: 18, alignSelf: 'center'}}>Log Out</Text>
+                        <Text style={{ fontSize: 18, alignSelf: 'center' }}>Log Out</Text>
                     </TouchableOpacity>
                     {/* </View> */}
                 </SafeAreaView> :
@@ -155,15 +164,16 @@ const Style = StyleSheet.create({
         alignItems: 'center'
     },
     titleCont: {
-        marginLeft: 15,
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignContent: 'center'
     },
     title: {
         fontSize: 16,
         marginTop: 3,
         fontWeight: 'bold',
+        alignSelf: 'center',
+        textAlign: 'center'
     },
     caption: {
         fontSize: 14,
@@ -204,4 +214,18 @@ const Style = StyleSheet.create({
         paddingVertical: 12,
         paddingHorizontal: 16,
     },
+    userProfile: {
+        backgroundColor: 'yellow',
+        width: width,
+        justifyContent: 'center',
+        alignContent: 'center',
+        // marginLeft: width
+    },
+    done: {
+        backgroundColor: 'blue',
+        justifyContent: 'center',
+        alignContent: 'center',
+        width: width * 0.5
+
+    }
 })
