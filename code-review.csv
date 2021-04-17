@@ -1,0 +1,2 @@
+sha,filename,url,lines,title,comment,priority,category,additional,id,private
+"216d3a3d3e6784b27e1290c4659ebcecb0f9f2d9","\src\navigation\HomeStack.js","","1:0-77:27","","This is a stack navigation using react native navigation","2","Performance","","fd07e08b-e000-484a-82ce-5c3e04de6917","0"

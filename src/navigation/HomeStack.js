@@ -16,6 +16,7 @@ const HomeStack = () => {
     const [loggedIn, setloggedIn] = useState(false)
     const [loading, setloading] = useState(true)
     const checkSession = async () => {
+        setloading(true)
         Cookie.get('https://api-bloodbank-v1.herokuapp.com/').then(cookie => {
             if (cookie && cookie._SESSION_ID_) {
                 setloggedIn(true)
@@ -39,31 +40,36 @@ const HomeStack = () => {
         // }
     }, [])
 
-    if (loading) {
-        checkSession()
-        return <Loader />;
-    }
+    // if (!loading) {
+    //     checkSession()
+    //     return <Loader />;
+    // }
     return (
-        <Stack.Navigator
-            screenOptions={{
-                headerShown: false
-            }}>
-            {loggedIn === false ? (
-                <>
-                    <Stack.Screen name="Login" component={Login} />
-                    <Stack.Screen name="Register" component={Register} />
-                    <Stack.Screen name="TabBar" component={TabBar} />
-                </>
-            ) :
-                (
-                    <>
-                        <Stack.Screen name="TabBar" component={TabBar} />
-                        <Stack.Screen name="Register" component={Register} />
-                        <Stack.Screen name="Login" component={Login} />
-                    </>
-                )
-            }
-        </Stack.Navigator>
+        <>
+            {loading === false ?
+                <Stack.Navigator
+                    screenOptions={{
+                        headerShown: false
+                    }}>
+                    {loggedIn === false ? (
+                        <>
+                            <Stack.Screen name="Login" component={Login} />
+                            <Stack.Screen name="Register" component={Register} />
+                            <Stack.Screen name="TabBar" component={TabBar} />
+                        </>
+                    ) :
+                        (
+                            <>
+                                <Stack.Screen name="TabBar" component={TabBar} />
+                                <Stack.Screen name="Register" component={Register} />
+                                <Stack.Screen name="Login" component={Login} />
+                            </>
+                        )
+                    }
+                </Stack.Navigator>
+                :
+                <Loader />}
+        </>
     );
 }
 
@@ -74,4 +80,3 @@ export default HomeNavigation = () => {
         </NavigationContainer>
     )
 };
-// export default HomeStack

@@ -148,15 +148,6 @@ class Login extends Component {
           } else if (data.error === false) {
             const user_info = JSON.stringify(data.data)
             await AsyncStorage.setItem('@user_info', user_info)
-            Toast.show({
-              text: data.message,
-              position: 'top',
-              type: 'success',
-              buttonText: 'Okay',
-              buttonTextStyle: { color: 'black', fontSize: 15, textAlign: 'center' },
-              buttonStyle: { backgroundColor: 'green' },
-              duration: 7000,
-            });
             this.setState({ loading: false });
             this.props.navigation.navigate('TabBar', {
               screen: 'Contact'

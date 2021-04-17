@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Blood Bank</string>
+    <string name="default_notification_channel_id">blood_bank</string>
+    <string name="server_client_id">998111580863-epu8gp9o2k9reo72ri65hmmv6q0dc5fb.apps.googleusercontent.com</string>
 </resources>

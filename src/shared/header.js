@@ -32,14 +32,15 @@ class Header extends Component {
 
   render() {
     const { drawerOpen } = this.state
+    const { title, children, navigation } = this.props
     return (
       <View>
         {Platform.OS === 'ios' && (
           <View style={Style.headerIos}>
-            {/* <TouchableOpacity
+            {/* {title === "Make Request" && <TouchableOpacity
               style={Style.iconIos}
               onPress={() => {
-                this.toggleDrawer();
+                navigation.goBack()
               }}>
               < Image
                 resizeMode="contain"
@@ -51,28 +52,28 @@ class Header extends Component {
                   height: 20,
                   marginBottom: 10,
                 }}
-                source={require('../assets/images/menu.png')}
+                source={require('../assets/images/back2.png')}
               />
-            </TouchableOpacity> */}
+            </TouchableOpacity>} */}
             <Text style={Style.headerTextIos}>{this.props.title}</Text>
-            <View>{this.props.children}</View>
+            <View>{children}</View>
           </View>
         )}
         {Platform.OS === 'android' && (
           <View style={Style.header}>
-            {/* <TouchableOpacity
+            {/* {title === "Make Request" && <TouchableOpacity
               style={Style.icon}
               onPress={() => {
-                this.toggleDrawer();
+                navigation.goBack()
               }}>
               <Image
                 resizeMode="contain"
                 style={{ width: 40, height: 30 }}
-                source={require('../assets/images/menu.png')}
+                source={require('../assets/images/back2.png')}
               />
-            </TouchableOpacity> */}
-            <Text style={Style.headerText}>{this.props.title}</Text>
-            <View>{this.props.children}</View>
+            </TouchableOpacity>} */}
+            <Text style={Style.headerText}>{title}</Text>
+            <View>{children}</View>
           </View>
         )}
       </View>

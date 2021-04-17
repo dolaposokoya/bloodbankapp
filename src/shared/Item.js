@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { View, Text, Image, TouchableOpacity, Modal } from 'react-native'
 import Style from '../assets/style/style';
 import StyleView from '../assets/style/sidebarstyle';
+import PushNotification from "react-native-push-notification";
+
 
 export default function Item(props) {
     const { item } = props
@@ -9,9 +11,28 @@ export default function Item(props) {
     const [modalView, setmodalView] = useState(false)
     const [modelViewData, setmodelViewData] = useState({})
 
+    const sendNotification = () => {
+        PushNotification.localNotification({
+            // PushNotification.localNotificationSchedule({
+            channelId: "Blood_Bank",
+            // id: id,
+            title: "Contact Message",
+            message: `You have contacted ${first_name}`,
+            largeIcon: "ic_launcher",
+            largeIconUrl: "ic_launcher",
+            allowWhileIdle: false,
+            playSound: true,
+            vibrate: true,
+            priority: "high",
+            messageId: "google:message_id",
+        });
+
+    }
+
     const contactDonor = item => {
         setmodalView(true)
         setmodelViewData(item)
+        sendNotification()
     };
     return (
         <View style={Style.item}>

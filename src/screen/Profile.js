@@ -116,7 +116,7 @@ export default function Profile(props) {
                                     //     selectedPage('Request')
                                     // }}
                                     icon={({ color, size }) => (
-                                        <Image source={require('../assets/images/clipboard.png')} style={{ width: 35, height: 35 }} />
+                                        <Image source={require('../assets/images/clipboards.png')} style={{ width: 35, height: 35 }} />
                                     )}
                                     labelStyle={{
                                         fontSize: 18,

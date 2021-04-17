@@ -1,6 +1,8 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
+
+const { width, height } = Dimensions.get('window')
 const Style = StyleSheet.create({
   scrollView: {
     marginBottom: 110,
@@ -22,12 +24,14 @@ const Style = StyleSheet.create({
   },
   headerIos: {
     height: 90,
-    backgroundColor: 'white',
+    // backgroundColor: 'white',
+    backgroundColor: '#8B0000',
     marginLeft: -10,
   },
   header: {
     height: 70,
-    backgroundColor: 'white',
+    backgroundColor: '#8B0000',
+    // backgroundColor: 'white',
     marginLeft: -10,
   },
   headerTextIos: {
@@ -36,7 +40,7 @@ const Style = StyleSheet.create({
     fontSize: 55,
     paddingTop: 40,
     alignSelf: 'center',
-    color: '#333',
+    color: '#fff',
     letterSpacing: 1,
   },
   headerText: {
@@ -45,7 +49,7 @@ const Style = StyleSheet.create({
     fontSize: 15,
     paddingTop: 30,
     alignSelf: 'center',
-    color: '#333',
+    color: '#fff',
     letterSpacing: 1,
   },
   iconIos: {
@@ -55,7 +59,7 @@ const Style = StyleSheet.create({
     left: 5,
   },
   icon: {
-    top: 30,
+    top: 20,
     // bottom: 9,
     position: 'absolute',
     left: 17,
@@ -78,7 +82,6 @@ const Style = StyleSheet.create({
     borderWidth: 2,
     borderColor: 'black',
     backgroundColor: 'white',
-    // backgroundColor: 'linear-gradient(265.9deg, rgba(249, 249, 249, 0.34) 0%, rgba(163, 163, 163, 0.79) 100%)',
     width: '100%',
     marginTop: 40,
     borderRadius: 10,
@@ -93,14 +96,14 @@ const Style = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
-    backgroundColor: 'linear-gradient(265.9deg, rgba(249, 249, 249, 0.34) 0%, rgba(163, 163, 163, 0.79) 100%)',
     width: '95%',
     marginLeft: 10,
     marginRight: 10,
     marginTop: 10,
     borderRadius: 10,
     elevation: 2,
-    color: '#000000',
+    backgroundColor: '#f3f3f3',
+    // color: '#000000',
     borderWidth: 2,
     borderColor: 'black',
   },
@@ -108,6 +111,14 @@ const Style = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row'
+  },
+  signIn: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    backgroundColor: '#e3e3e3',
+    padding: 10,
+    margin: 7
   },
   item: {
     // padding: 10,

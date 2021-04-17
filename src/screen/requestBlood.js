@@ -5,6 +5,9 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
+  Dimensions
 } from 'react-native';
 import Header from '../shared/header';
 import StyleView from '../assets/style/sidebarstyle';
@@ -15,6 +18,8 @@ import { Picker, DatePicker, Toast } from 'native-base';
 import { apiUrl } from '../config/apiUrl';
 import { connect } from 'react-redux';
 
+
+const { height, width } = Dimensions.get("window");
 class RequestBlood extends Component {
   constructor(props, context) {
     super(props, context);
@@ -222,186 +227,189 @@ class RequestBlood extends Component {
           parentProps={this.props}
           navigation={this.props.navigation}
         />
-        <ScrollView style={[StyleView.container]}>
-          <View >
-            <View style={StyleView.reg_main}>
-              <View style={StyleView.inputView}>
-                <TextInput
-                  onChangeText={val => {
-                    this.setState({ patient_name: val });
-                  }}
-                  style={StyleView.inputField}
-                  placeholder="Patient Name"
-                  placeholderTextColor={'black'}
-                />
-              </View>
-              <View style={StyleView.inputView}>
-                <TextInput
-                  onChangeText={val => {
-                    this.setState({ patient_mobile: val });
-                  }}
-                  style={StyleView.inputField}
-                  placeholder="Patient Mobile"
-                  placeholderTextColor={'black'}
-                />
-              </View>
-              <View style={StyleView.inputView}>
-                <TextInput
-                  onChangeText={val => {
-                    this.setState({ patient_email: val });
-                  }}
-                  style={StyleView.inputField}
-                  placeholder="Contact Email"
-                  placeholderTextColor={'black'}
-                />
-              </View>
-              <View style={StyleView.inputView}>
-                <View
-                  style={[StyleView.inputField, { paddingLeft: 0 }]}
-                >
-                  <DatePicker
-                    locale={'en'}
-                    modalTransparent={false}
-                    animationType={'fade'}
-                    placeHolderText="date of request"
-                    textStyle={{ color: 'black' }}
-                    style={StyleView.inputField}
-                    onDateChange={val => {
-                      this.setState({ date_needed: val });
+        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
+          style={{ flex: 1 }}>
+          <ScrollView style={[StyleView.container]}>
+            <View >
+              <View style={StyleView.reg_main}>
+                <View style={StyleView.inputView}>
+                  <TextInput
+                    onChangeText={val => {
+                      this.setState({ patient_name: val });
                     }}
-                    disabled={false}
+                    style={StyleView.inputField}
+                    placeholder="Patient Name"
+                    placeholderTextColor={'black'}
                   />
                 </View>
-              </View>
-              <View style={StyleView.inputView}>
-                <View style={[StyleView.inputField, { paddingLeft: 0 }]}>
-                  <Picker
-                    mode="dropdown"
-                    selectedValue={this.state.blood_group}
-                    onValueChange={value => {
-                      this.setState({ blood_group: value });
-                    }}>
-                    <Picker.Item
-                      label={this.state.blood_group}
-                      value={this.state.blood_group}
-                    />
-                    {this.state.bloodgroup.map((item, key) => {
-                      return (
-                        <Picker.Item
-                          label={item.group}
-                          value={item.group}
-                          key={key}
-                        />
-                      );
-                    })}
-                  </Picker>
+                <View style={StyleView.inputView}>
+                  <TextInput
+                    onChangeText={val => {
+                      this.setState({ patient_mobile: val });
+                    }}
+                    style={StyleView.inputField}
+                    placeholder="Patient Mobile"
+                    placeholderTextColor={'black'}
+                  />
                 </View>
-              </View>
-              <View style={StyleView.inputView}>
-                <TextInput
-                  onChangeText={val => {
-                    this.setState({ doctor_name: val });
-                  }}
-                  style={StyleView.inputField}
-                  placeholder="Dr. Name"
-                  placeholderTextColor={'black'}
-                />
-              </View>
-              <View style={StyleView.inputView}>
-                <TextInput
-                  onChangeText={val => {
-                    this.setState({ hospital_name: val });
-                  }}
-                  style={StyleView.inputField}
-                  placeholder="Hospital Name"
-                  placeholderTextColor={'black'}
-                />
-              </View>
-              <View style={StyleView.inputView}>
-                <TextInput
-                  onChangeText={val => {
-                    this.setState({ hospital_address: val });
-                  }}
-                  style={StyleView.inputField}
-                  placeholder="Hospital Address"
-                  placeholderTextColor={'black'}
-                />
-              </View>
-              <View style={StyleView.inputView}>
-                <TextInput
-                  onChangeText={val => {
-                    this.setState({ city: val });
-                  }}
-                  style={StyleView.inputField}
-                  placeholder="City"
-                  placeholderTextColor={'black'}
-                />
-              </View>
-              <View style={StyleView.inputView}>
-                <TextInput
-                  onChangeText={val => {
-                    this.setState({ pincode: val });
-                  }}
-                  style={StyleView.inputField}
-                  placeholder="Pin Code(City)"
-                  placeholderTextColor={'black'}
-                  keyboardType={'numeric'}
-                />
-              </View>
-              <View style={StyleView.inputView}>
-                <View style={[StyleView.inputField, { paddingLeft: 0 }]}>
-                  <Picker
-                    mode="dropdown"
-                    selectedValue={this.state.state}
-                    onValueChange={value => {
-                      this.setState({ state: value });
-                    }}>
-                    <Picker.Item
-                      label={this.state.state}
-                      value={this.state.state}
-                    />
-                    {this.state.states.map((item, key) => {
-                      return (
-                        <Picker.Item
-                          label={item.state}
-                          value={item.state}
-                          key={key}
-                        />
-                      );
-                    })}
-                  </Picker>
+                <View style={StyleView.inputView}>
+                  <TextInput
+                    onChangeText={val => {
+                      this.setState({ patient_email: val });
+                    }}
+                    style={StyleView.inputField}
+                    placeholder="Contact Email"
+                    placeholderTextColor={'black'}
+                  />
                 </View>
-              </View>
-              <View style={StyleView.inputView}>
-                <TextInput
-                  onChangeText={val => {
-                    this.setState({ hospital_mobile: val });
-                  }}
-                  style={StyleView.inputField}
-                  placeholder="Hospital mobile"
-                  placeholderTextColor={'black'}
-                />
-              </View>
-              <TouchableOpacity
-                style={Style.reqBtn}
-                onPress={() => {
-                  this.makeRequest();
-                }}>
-                <Text
-                  style={{
-                    textAlign: 'center',
-                    margin: 12,
-                    width: 100,
-                    fontWeight: 'bold',
-                    fontSize: 20,
-                  }}
-                >
-                  REQUEST
+                <View style={StyleView.inputView}>
+                  <View
+                    style={[StyleView.inputField, { paddingLeft: 0 }]}
+                  >
+                    <DatePicker
+                      locale={'en'}
+                      modalTransparent={false}
+                      animationType={'fade'}
+                      placeHolderText="date of request"
+                      textStyle={{ color: 'black' }}
+                      style={StyleView.inputField}
+                      onDateChange={val => {
+                        this.setState({ date_needed: val });
+                      }}
+                      disabled={false}
+                    />
+                  </View>
+                </View>
+                <View style={StyleView.inputView}>
+                  <View style={[StyleView.inputField, { paddingLeft: 0 }]}>
+                    <Picker
+                      mode="dropdown"
+                      selectedValue={this.state.blood_group}
+                      onValueChange={value => {
+                        this.setState({ blood_group: value });
+                      }}>
+                      <Picker.Item
+                        label={this.state.blood_group}
+                        value={this.state.blood_group}
+                      />
+                      {this.state.bloodgroup.map((item, key) => {
+                        return (
+                          <Picker.Item
+                            label={item.group}
+                            value={item.group}
+                            key={key}
+                          />
+                        );
+                      })}
+                    </Picker>
+                  </View>
+                </View>
+                <View style={StyleView.inputView}>
+                  <TextInput
+                    onChangeText={val => {
+                      this.setState({ doctor_name: val });
+                    }}
+                    style={StyleView.inputField}
+                    placeholder="Dr. Name"
+                    placeholderTextColor={'black'}
+                  />
+                </View>
+                <View style={StyleView.inputView}>
+                  <TextInput
+                    onChangeText={val => {
+                      this.setState({ hospital_name: val });
+                    }}
+                    style={StyleView.inputField}
+                    placeholder="Hospital Name"
+                    placeholderTextColor={'black'}
+                  />
+                </View>
+                <View style={StyleView.inputView}>
+                  <TextInput
+                    onChangeText={val => {
+                      this.setState({ hospital_address: val });
+                    }}
+                    style={StyleView.inputField}
+                    placeholder="Hospital Address"
+                    placeholderTextColor={'black'}
+                  />
+                </View>
+                <View style={StyleView.inputView}>
+                  <TextInput
+                    onChangeText={val => {
+                      this.setState({ city: val });
+                    }}
+                    style={StyleView.inputField}
+                    placeholder="City"
+                    placeholderTextColor={'black'}
+                  />
+                </View>
+                <View style={StyleView.inputView}>
+                  <TextInput
+                    onChangeText={val => {
+                      this.setState({ pincode: val });
+                    }}
+                    style={StyleView.inputField}
+                    placeholder="Pin Code(City)"
+                    placeholderTextColor={'black'}
+                    keyboardType={'numeric'}
+                  />
+                </View>
+                <View style={StyleView.inputView}>
+                  <View style={[StyleView.inputField, { paddingLeft: 0 }]}>
+                    <Picker
+                      mode="dropdown"
+                      selectedValue={this.state.state}
+                      onValueChange={value => {
+                        this.setState({ state: value });
+                      }}>
+                      <Picker.Item
+                        label={this.state.state}
+                        value={this.state.state}
+                      />
+                      {this.state.states.map((item, key) => {
+                        return (
+                          <Picker.Item
+                            label={item.state}
+                            value={item.state}
+                            key={key}
+                          />
+                        );
+                      })}
+                    </Picker>
+                  </View>
+                </View>
+                <View style={StyleView.inputView}>
+                  <TextInput
+                    onChangeText={val => {
+                      this.setState({ hospital_mobile: val });
+                    }}
+                    style={StyleView.inputField}
+                    placeholder="Hospital mobile"
+                    placeholderTextColor={'black'}
+                  />
+                </View>
+                <TouchableOpacity
+                  style={Style.reqBtn}
+                  onPress={() => {
+                    this.makeRequest();
+                  }}>
+                  <Text
+                    style={{
+                      textAlign: 'center',
+                      margin: 12,
+                      width: 100,
+                      fontWeight: 'bold',
+                      fontSize: 20,
+                    }}
+                  >
+                    REQUEST
             </Text>
-              </TouchableOpacity>
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
-        </ScrollView>
+          </ScrollView>
+        </KeyboardAvoidingView>
       </>
     );
   }
