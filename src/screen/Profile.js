@@ -118,7 +118,7 @@ export default function Profile(props) {
                                     //     selectedPage('Request')
                                     // }}
                                     icon={({ color, size }) => (
-                                        <Image source={require('../assets/images/clipboards.png')} style={{ width: 35, height: 35 }} />
+                                        <Image source={require('../assets/images/request.png')} style={{ width: 35, height: 35 }} />
                                     )}
                                     labelStyle={{
                                         fontSize: 18,
@@ -136,8 +136,13 @@ export default function Profile(props) {
                         </View>
                     </View>}
                     {/* <View> */}
+
                     <TouchableOpacity style={Style.bottomDrawerSection} onPress={() => logOutSession()}>
+<<<<<<< HEAD
                         <Image source={require('../assets/images/logout.png')} style={{ width: 40, height: 40, marginRight: 20 }} />
+=======
+                        <Image source={require('../assets/images/logout.png')} style={{ width: 35, height: 35, marginLeft: 20, marginRight: 20 }} />
+>>>>>>> master
                         <Text style={{ fontSize: 18, alignSelf: 'center' }}>Log Out</Text>
                     </TouchableOpacity>
                     {/* </View> */}

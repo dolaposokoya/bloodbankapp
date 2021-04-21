@@ -28,7 +28,7 @@ export default function TabBarComponent(props) {
                     <Title style={{ color: focused === 'Contact' ? '#8B0000' : 'black', fontSize: 16 }}>Contact</Title>
                 </TouchableOpacity>
                 <TouchableOpacity style={TabStyle.container2} onPress={(Contact) => handlePress('Request')}>
-                    <Image source={focused !== 'Request' ? require('../assets/images/clipboards.png') : require('../assets/images/clipboards2.png')} style={{ width: 20, height: 20 }} />
+                    <Image source={focused !== 'Request' ? require('../assets/images/request.png') : require('../assets/images/request2.png')} style={{ width: 20, height: 20 }} />
                     <Title style={{ color: focused === 'Request' ? '#8B0000' : 'black', fontSize: 16 }}>Request</Title>
                 </TouchableOpacity>
                 <TouchableOpacity style={TabStyle.container2} onPress={() => handlePress('Profile')}>
