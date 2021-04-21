@@ -62,7 +62,7 @@ export default function DrawerComponent(props) {
                                     selectedPage('Contact')
                                 }}
                                 icon={({ color, size }) => (
-                                    <Image source={require('../assets/images/telephone-book.png')} style={{ width: 35, height: 35 }} />
+                                    <Image source={require('../assets/images/contact-book.png')} style={{ width: 35, height: 35 }} />
                                 )}
                                 labelStyle={{
                                     fontSize: 18,
@@ -76,7 +76,7 @@ export default function DrawerComponent(props) {
                                     selectedPage('Request')
                                 }}
                                 icon={({ color, size }) => (
-                                    <Image source={require('../assets/images/clipboard.png')} style={{ width: 35, height: 35 }} />
+                                    <Image source={require('../assets/images/request.png')} style={{ width: 35, height: 35 }} />
                                 )}
                                 labelStyle={{
                                     fontSize: 18,

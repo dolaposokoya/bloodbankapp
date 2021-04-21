@@ -37,41 +37,12 @@ class Header extends Component {
       <View>
         {Platform.OS === 'ios' && (
           <View style={Style.headerIos}>
-            {/* {title === "Make Request" && <TouchableOpacity
-              style={Style.iconIos}
-              onPress={() => {
-                navigation.goBack()
-              }}>
-              < Image
-                resizeMode="contain"
-                style={{
-                  top: 3,
-                  left: 7,
-                  bottom: 8,
-                  width: 90,
-                  height: 20,
-                  marginBottom: 10,
-                }}
-                source={require('../assets/images/back2.png')}
-              />
-            </TouchableOpacity>} */}
             <Text style={Style.headerTextIos}>{this.props.title}</Text>
             <View>{children}</View>
           </View>
         )}
         {Platform.OS === 'android' && (
           <View style={Style.header}>
-            {/* {title === "Make Request" && <TouchableOpacity
-              style={Style.icon}
-              onPress={() => {
-                navigation.goBack()
-              }}>
-              <Image
-                resizeMode="contain"
-                style={{ width: 40, height: 30 }}
-                source={require('../assets/images/back2.png')}
-              />
-            </TouchableOpacity>} */}
             <Text style={Style.headerText}>{title}</Text>
             <View>{children}</View>
           </View>

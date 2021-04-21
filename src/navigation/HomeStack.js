@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Text } from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack';
-import Register from '../screen/Register';
+import Register from '../screen/register';
 import Login from '../screen/login';
 import TabBar from './TabBar'
 import { NavigationContainer } from '@react-navigation/native';

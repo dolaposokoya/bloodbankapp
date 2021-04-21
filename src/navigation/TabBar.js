@@ -7,6 +7,7 @@ import Chat from '../screen/Chat';
 import RequestComp from '../screen/requestBlood';
 import Profile from '../screen/Profile';
 import { Image, Dimensions } from "react-native";
+import ChatStack from './ChatStack'
 
 
 
@@ -14,6 +15,13 @@ const TabNavigation = createBottomTabNavigator();
 const { height, width } = Dimensions.get("window");
 const TabBar = (props) => {
 
+    const getTabBarVisibility = (route) => {
+        const routeName = route.state ? route.state.routes[route.state.index].name : '';
+        if (routeName === 'Chats') {
+            return false
+        }
+        return true
+    }
     return (
         <TabNavigation.Navigator
             initialRouteName="Contact"
@@ -59,8 +67,8 @@ const TabBar = (props) => {
                         <Image
                             source={
                                 focused
-                                    ? require("../assets/images/clipboards2.png")
-                                    : require("../assets/images/clipboards.png")
+                                    ? require("../assets/images/request2.png")
+                                    : require("../assets/images/request.png")
                             }
                             style={{
                                 height: size,
@@ -72,8 +80,10 @@ const TabBar = (props) => {
                     )
                 }}
             />
-            <TabNavigation.Screen name="Chat" component={Chat}
-                options={{
+            <TabNavigation.Screen name="Chat" component={ChatStack}
+                options={({ route }) => ({
+                    tabBarVisible: route.state && route.state.index === 0,
+                    // tabBarVisible: getTabBarVisibility(route),
                     tabBarLabel: "Chat",
                     tabBarIcon: ({ focused, color, size }) => (
                         <Image
@@ -90,7 +100,7 @@ const TabBar = (props) => {
                             resizeMode="contain"
                         />
                     )
-                }}
+                })}
             />
             < TabNavigation.Screen name="Profile" component={Profile}
                 options={{
