@@ -138,11 +138,7 @@ export default function Profile(props) {
                     {/* <View> */}
 
                     <TouchableOpacity style={Style.bottomDrawerSection} onPress={() => logOutSession()}>
-<<<<<<< HEAD
-                        <Image source={require('../assets/images/logout.png')} style={{ width: 40, height: 40, marginRight: 20 }} />
-=======
                         <Image source={require('../assets/images/logout.png')} style={{ width: 35, height: 35, marginLeft: 20, marginRight: 20 }} />
->>>>>>> master
                         <Text style={{ fontSize: 18, alignSelf: 'center' }}>Log Out</Text>
                     </TouchableOpacity>
                     {/* </View> */}

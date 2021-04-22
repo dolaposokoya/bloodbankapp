@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, Dimensions, FlatList } from 'react-native'
-import Header from './header';
-import UserData from './UserData';
+import Header from '../shared/header';
+import UserData from '../shared/UserData';
 import { users } from '../config/users'
 
 

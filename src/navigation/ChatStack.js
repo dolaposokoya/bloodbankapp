@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import UserList from '../shared/UserList';
+import UserList from '../screen/UserList';
 import Chat from '../screen/Chat';
 
 
