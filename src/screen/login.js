@@ -10,6 +10,12 @@ import { Toast } from 'native-base';
 import NetInfo from '@react-native-community/netinfo';
 import Cookie from 'react-native-cookie';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
+import auth from '@react-native-firebase/auth';
 
 
 class Login extends Component {
@@ -21,7 +27,8 @@ class Login extends Component {
       loading: false,
       bloodgroup: '',
       state: '',
-      session: ''
+      session: '',
+      userInfo: '',
     };
   }
 
@@ -146,12 +153,48 @@ class Login extends Component {
             });
             this.setState({ loading: false });
           } else if (data.error === false) {
-            const user_info = JSON.stringify(data.data)
-            await AsyncStorage.setItem('@user_info', user_info)
-            this.setState({ loading: false });
-            this.props.navigation.navigate('TabBar', {
-              screen: 'Contact'
-            });
+            auth()
+              .createUserWithEmailAndPassword(formData.email, `${formData.password}678`)
+              .then(async () => {
+                const user_info = JSON.stringify(data.data)
+                await AsyncStorage.setItem('@user_info', user_info)
+                this.setState({ loading: false });
+                this.props.navigation.navigate('TabBar', {
+                  screen: 'Contact'
+                });
+              })
+              .catch(async (error) => {
+                if (error.code === 'auth/email-already-in-use') {
+                  const user_info = JSON.stringify(data.data)
+                  await AsyncStorage.setItem('@user_info', user_info)
+                  this.setState({ loading: false });
+                  this.props.navigation.navigate('TabBar', {
+                    screen: 'Contact'
+                  });
+                }
+                if (error.code === 'auth/invalid-email') {
+                  Toast.show({
+                    text: 'That email address is invalid!',
+                    position: 'top',
+                    type: 'warning',
+                    buttonText: 'Okay',
+                    buttonTextStyle: { color: 'black', fontSize: 15, textAlign: 'center' },
+                    buttonStyle: { backgroundColor: '#9a0901' },
+                    duration: 7000,
+                  });
+                }
+                else if (error.code !== 'auth/email-already-in-use' && error.code !== 'auth/invalid-email') {
+                  Toast.show({
+                    text: error.message,
+                    position: 'top',
+                    type: 'warning',
+                    buttonText: 'Okay',
+                    buttonTextStyle: { color: 'black', fontSize: 15, textAlign: 'center' },
+                    buttonStyle: { backgroundColor: '#9a0901' },
+                    duration: 7000,
+                  });
+                }
+              });
           }
         });
       }
@@ -168,6 +211,29 @@ class Login extends Component {
       this.setState({ loading: false });
     }
   }
+
+  signIn = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      this.setState({ userInfo });
+      Alert.alert(JSON.stringify(userInfo))
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        Alert.alert(JSON.stringify(error))
+        // user cancelled the login flow
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        Alert.alert(JSON.stringify(error))
+        // operation (e.g. sign in) is in progress already
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        Alert.alert(JSON.stringify(error))
+        // play services not available or outdated
+      } else {
+        Alert.alert(error.message)
+        // some other error happened
+      }
+    }
+  };
 
   render() {
     return (
@@ -232,6 +298,14 @@ class Login extends Component {
               Click here
             </Text>
           </TouchableOpacity>
+        </View>
+        <View style={Style.regBtn}>
+          <GoogleSigninButton
+            style={{ width: 192, height: 48 }}
+            size={GoogleSigninButton.Size.Wide}
+            color={GoogleSigninButton.Color.Dark}
+            onPress={this.signIn}
+            disabled={this.state.isSigninInProgress} />
         </View>
       </View >
     );

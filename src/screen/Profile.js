@@ -40,7 +40,6 @@ export default function Profile(props) {
                 setloading(false)
             }
             else {
-                // console.warn('Errpor', message)
                 setloading(false)
             }
         } catch (error) {

@@ -25,7 +25,6 @@ const Drawer = (props) => {
       if (user_info != null) {
         const userData = JSON.parse(user_info)
         setuser(userData)
-        console.warn('User Drwaer', userData.first_name)
       }
       else {
         setuser({})

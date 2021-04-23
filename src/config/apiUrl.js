@@ -1,11 +1,7 @@
 import { Platform } from 'react-native';
 import base64 from 'react-native-base64'
+import firestore from '@react-native-firebase/firestore';
 
-const apiConfig = {
-  localhost: false,
-  development: false,
-  apiVersiion: 'v3'
-}
 
 const environment = 'pro'
 const { REACT_APP_ENVIRONMENT, REACT_APP_AUTH } = process.env;
@@ -20,7 +16,7 @@ if (Platform.OS === 'ios') {
 
 } else {
   apiEndpoint = environment === 'development' ? `http://10.0.2.2:5000/api/` : `https://api-bloodbank-v1.herokuapp.com/api/`;
-  baseURL = environment === 'development' ? ` http://10.0.2.2:5000/` : `https://api-bloodbank-v1.herokuapp.com/images`;
+  baseURL = environment === 'development' ? ` http://10.0.2.2:5000/images` : `https://api-bloodbank-v1.herokuapp.com/images`;
 }
 
 export const apiUrl = {
@@ -34,3 +30,5 @@ export const apiUrl = {
   getMetaData: `${apiEndpoint}bloodgroup/bloodAllGroup`,
   makeRequest: `${apiEndpoint}request/createRequest`
 };
+export const chatsRef = firestore().collection('messages')
+export const usersRef = firestore().collection('users')

@@ -13,7 +13,6 @@ export default function DrawerComponent(props) {
     const [focused, setfocused] = useState('Contact')
     const { user, navigation } = props
 
-    // console.warn('Props', user)
     const selectedPage = async (selected) => {
         setfocused(selected)
         navigation.navigate(selected);

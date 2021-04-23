@@ -127,7 +127,6 @@ class ContactDonor extends Component {
     this.setState({ loading: true });
     const { backUpData, offset, pageCount } = this.state
     if (offset === pageCount) {
-      console.warn('Offes', offset === pageCount)
       this.setState({ offset: 0 })
       await this.getAllUsers();
     }

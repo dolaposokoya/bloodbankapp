@@ -172,7 +172,6 @@ class RequestBlood extends Component {
         duration: 3000,
       });
     } else {
-      console.log('Form Data', formData);
       fetch(apiUrl.makeRequest, {
         method: 'POST',
         headers: {

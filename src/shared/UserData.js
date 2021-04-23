@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, Dimensions, ScrollView, Image, StyleSheet, TouchableOpacity } from 'react-native'
+import { apiUrl } from '../config/apiUrl'
 
 
 const { height, width } = Dimensions.get('window')
@@ -19,7 +20,7 @@ export default function UserData(props) {
                 <View style={{
                     width: width * 0.18,
                 }}>
-                    <Image source={{ uri: item.avatar }} style={Styles.imageView} />
+                    <Image source={{ uri: `${apiUrl.baseURL}/${item.avatar}` }} style={Styles.imageView} />
                 </View>
                 <TouchableOpacity style={Styles.msgContainer} onPress={() => goToChat()}>
                     <View style={Styles.msgView}>

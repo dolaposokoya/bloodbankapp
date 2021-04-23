@@ -11,7 +11,6 @@ export default function TabBarComponent(props) {
     const { routes } = state
     const [focused, setfocused] = useState('Contact')
     const focusedOptions = descriptors[routes[state.index].key].options;
-    // console.warn('routes', routes)
     if (focusedOptions.tabBarVisible === false) {
         return null;
     }

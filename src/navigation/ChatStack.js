@@ -15,7 +15,11 @@ const ChatStack = () => {
                 headerShown: false
             }}>
             <Stack.Screen name="UserList" component={UserList} />
-            <Stack.Screen name="Chats" component={Chat} />
+            <Stack.Screen name="Chats" component={Chat}
+              options={({ route }) => ({
+                title: route.params.user.name
+              })}
+            />
         </Stack.Navigator>
     );
 }

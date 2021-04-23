@@ -5,7 +5,7 @@ import HomeNavigation from './src/navigation/HomeStack';
 import { Provider } from 'react-redux';
 import store from './src/config/store';
 import { Root } from 'native-base';
-import { Animated, Text } from 'react-native';
+import { LogBox } from 'react-native';
 import Spinner from "./src/component/Spinner";
 import messaging from '@react-native-firebase/messaging';
 // import PushNotificationIOS from "@react-native-community/push-notification-ios";
@@ -14,14 +14,14 @@ import firebase from '@react-native-firebase/app';
 import { credentials } from './Credentials'
 import {
   GoogleSignin,
-  GoogleSigninButton,
-  statusCodes,
 } from '@react-native-google-signin/google-signin';
 
 
 
-const App = props => {
 
+
+const App = props => {
+  // LogBox.ignoreLogs()
   let updatedValue = 0;
   const [loading, setloading] = useState(false)
   useEffect(() => {
@@ -32,7 +32,13 @@ const App = props => {
       name: `Blood bank-${updatedValue}`,
     };
 
-    firebase.initializeApp(credentials, config);
+    if (firebase.app.length > 0) {
+      return false
+    }
+    else {
+      firebase.initializeApp(credentials, config);
+    }
+
     PushNotification.createChannel(
       {
         channelId: "Blood_Bank", // (required)
@@ -53,7 +59,7 @@ const App = props => {
       }
     );
     PushNotification.getChannels(function (channel_ids) {
-      console.log('channel_ids', channel_ids); // ['channel_id_1']
+      return channel_ids
     });
     connfigureApp()
   }, [])
@@ -64,13 +70,10 @@ const App = props => {
       onRegister: function (token) {
       },
       onNotification: function (notification) {
-        console.log("NOTIFICATION:", notification);
-        // notification.finish(PushNotificationIOS.FetchResult.NoData);
+        notification.finish(PushNotificationIOS.FetchResult.NoData);
       },
       onAction: function (notification) {
-        console.log("ACTION:", notification.action);
-        console.log("NOTIFICATION:", notification);
-
+        return notification.action
         // process the action
       },
       onRegistrationError: function (err) {
@@ -88,7 +91,7 @@ const App = props => {
     GoogleSignin.configure({
       // scopes: ['https://www.googleapis.com/auth/drive.readonly'], // what API you want to access on behalf of the user, default is email and profile
       webClientId: credentials.clientId, // client ID of type WEB for your server (needed to verify user ID and offline access)
-      offlineAccess: true, // if you want to access Google API on behalf of the user FROM YOUR SERVER
+      offlineAccess: false, // if you want to access Google API on behalf of the user FROM YOUR SERVER
       hostedDomain: '', // specifies a hosted domain restriction
       loginHint: '', // [iOS] The user's ID, or email address, to be prefilled in the authentication UI if possible. [See docs here](https://developers.google.com/identity/sign-in/ios/api/interface_g_i_d_sign_in.html#a0a68c7504c31ab0b728432565f6e33fd)
       forceCodeForRefreshToken: true, // [Android] related to `serverAuthCode`, read the docs link below *.
