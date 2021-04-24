@@ -6,6 +6,7 @@ import { chatsRef, apiUrl } from '../config/apiUrl';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
+const { height, width } = Dimensions.get('window')
 export default function Chat(props) {
 
     const { navigation, route } = props
@@ -44,6 +45,7 @@ export default function Chat(props) {
             appendMessages(messagesFirestore)
         })
     }
+
 
     const appendMessages = useCallback(
         (messages) => {
@@ -92,11 +94,14 @@ export default function Chat(props) {
                     borderTopLeftRadius: 10,
                     borderBottomLeftRadius: 10,
                     borderBottomRightRadius: 10,
-                    backgroundColor: '#587387'
+                    backgroundColor: '#999FA8',
+                    // backgroundColor: '#587387'
                 },
+                
             }}
         />
     )
+
     const renderSend = (props) => (
         <Send
             {...props}
@@ -105,7 +110,7 @@ export default function Chat(props) {
                 <Image source={require('../assets/images/send-button.png')} style={{
                     width: 32,
                     height: 32,
-                    marginBottom: 5, marginRight: 5
+                    marginBottom: height * 0.010, marginRight: width * 0.01
                 }} />
             </View>
         </Send>

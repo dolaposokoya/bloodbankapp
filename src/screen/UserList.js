@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { View, Text, Dimensions, FlatList, Alert } from 'react-native'
 import Header from '../shared/header';
 import UserData from '../shared/UserData';
-import { users } from '../config/users';
 import Loader from '../shared/loader';
 import { usersRef } from '../config/apiUrl';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -12,7 +11,7 @@ const { height } = Dimensions.get('window')
 export default function UserList(props) {
 
     const { navigation } = props
-    const [userss, setusers] = useState([])
+    const [users, setusers] = useState([])
     const [loading, setloading] = useState(false)
 
     useEffect(() => {
@@ -58,8 +57,7 @@ export default function UserList(props) {
                 alignItems: 'center'
             }}>
                 <FlatList
-                    // data={users}
-                    data={userss}
+                    data={users}
                     keyExtractor={item => item._id}
                     renderItem={renderUserList}
                 />

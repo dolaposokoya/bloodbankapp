@@ -32,3 +32,4 @@ export const apiUrl = {
 };
 export const chatsRef = firestore().collection('messages')
 export const usersRef = firestore().collection('users')
+export const THEME_COLOR = "#8B0000";
